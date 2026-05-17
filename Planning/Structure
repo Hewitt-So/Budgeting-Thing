@@ -1,0 +1,6 @@
+Probably MVC
+write the data into Save file
+View (Enter number and press button)
+    -> Controller observes (sends the right functions to model)
+    -> Model (updates data)
+    -> View recieves new data and displays
