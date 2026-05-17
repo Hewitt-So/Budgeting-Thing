@@ -8,16 +8,13 @@ import model.BudgetModel;
 
 public class View {
     private final Stage stage;
-    private final BudgetModel budgetModel;
-    private final AddItemController controller;
-    private final GridPane selectionPane;
-    private final GridPane historyPane;
+
     public View (BudgetModel model, Stage stage){
-        this.budgetModel = model;
         this.stage = stage;
-        this.controller = new AddItemController(this.budgetModel);
-        this.selectionPane = new SelectionPane(this.budgetModel, this.controller);
-        this.historyPane = new HistoryPane(this.budgetModel);
+        SelectionPane selectionPane = new SelectionPane(model, null);
+        AddItemController controller = new AddItemController(model, selectionPane);
+        selectionPane.setController(controller);
+        GridPane historyPane = new HistoryPane(model);
 
         GridPane root = new GridPane();
         root.setVgap(10);
