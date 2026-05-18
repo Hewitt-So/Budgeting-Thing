@@ -37,7 +37,6 @@ public class SelectionPane extends GridPane {
 
         this.setAlignment(Pos.TOP_CENTER);
 
-        this.setMinSize(600,600);
         this.add(itemtext, 0, 0);
         this.add(amounttext, 1, 0);
         this.add(itembox, 1, 1);

@@ -6,6 +6,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.BudgetModel;
 
+import java.util.Observer;
+
 public class View {
     private final Stage stage;
 
@@ -14,7 +16,8 @@ public class View {
         SelectionPane selectionPane = new SelectionPane(model, null);
         AddItemController controller = new AddItemController(model, selectionPane);
         selectionPane.setController(controller);
-        GridPane historyPane = new HistoryPane(model);
+        HistoryPane historyPane = new HistoryPane(model);
+        model.addObserver(historyPane);
 
         GridPane root = new GridPane();
         root.setVgap(10);
