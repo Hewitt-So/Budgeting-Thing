@@ -1,6 +1,10 @@
 package view;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import model.BudgetModel;
@@ -9,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class HistoryPane extends GridPane implements Observer {
+public class HistoryPane extends TableView implements Observer {
     private final BudgetModel model;
     private int count = 1;
     //private Text curritem;
@@ -18,36 +22,31 @@ public class HistoryPane extends GridPane implements Observer {
     private ArrayList<Integer> amountlist = new ArrayList<>();
     public HistoryPane(BudgetModel model) {
         this.model = model;
-        //Text curritem = new Text("curri");
-        //Text curramount = new Text("curra");
         this.setMinSize(600, 600);
-        this.setAlignment(Pos.TOP_CENTER);
-
-        //this.add(curritem, 0, 0);
-        //this.add(curramount, 1, 0);
+        TableColumn<Entry, String> itemcol = new TableColumn<>("Item");
+        itemcol.setCellValueFactory(
+                new PropertyValueFactory<>("item"));
+        TableColumn<Entry, Integer> amountcol = new TableColumn<>("Amount");
+        amountcol.setCellValueFactory(
+                new PropertyValueFactory<>("amount"));
+        this.getColumns().add(itemcol);
+        this.getColumns().add(amountcol);
+        this.setPlaceholder(
+                new Label("No rows to display"));
     }
 
     /**
      * Add item and amount values into corresponding arraylist
      * Can track order via index number?
-     * @param citem
-     * @param camount
+     * @param entry
      */
-    private void addEntry(String citem, int camount){
-        itemlist.add(citem);
-        amountlist.add(camount);
-        Text item = new Text(citem);
-        Text amount = new Text(camount + "");
-        this.add(item, 0, this.count);
-        this.add(amount, 1, this.count);
-        this.count += 1;
+    private void addEntryToTable(Entry entry){
+        this.getItems().add(entry);
     }
 
 
     @Override
     public void update(Observable o, Object arg) {
-        String ci = model.getcurritem();
-        int ca = model.getcurramount();
-        this.addEntry(ci, ca);
+        this.addEntryToTable(model.currentry);
     }
 }
