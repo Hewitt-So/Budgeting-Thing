@@ -41,7 +41,7 @@ public class HistoryPane extends TableView implements Observer {
      * @param entry
      */
     private void addEntryToTable(Entry entry){
-        this.getItems().add(entry);
+        this.getItems().add(0,entry);
     }
 
 

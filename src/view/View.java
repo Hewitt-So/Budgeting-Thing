@@ -16,14 +16,17 @@ public class View {
         SelectionPane selectionPane = new SelectionPane(model, null);
         AddItemController controller = new AddItemController(model, selectionPane);
         selectionPane.setController(controller);
+        SummaryPane summaryPane = new SummaryPane(model, null);
         HistoryPane historyPane = new HistoryPane(model);
         model.addObserver(historyPane);
+        model.addObserver(summaryPane);
 
         GridPane root = new GridPane();
         root.setVgap(10);
         root.setHgap(10);
         root.add(selectionPane,0,0);
-        root.add(historyPane,0,1);
+        root.add(summaryPane,0,1);
+        root.add(historyPane,0,2);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
